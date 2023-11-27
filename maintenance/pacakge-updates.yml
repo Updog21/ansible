@@ -6,6 +6,9 @@
       when: ansible_pkg_mgr == 'apt'
       apt:
         update_cache: yes
+        name: '*'
+        state: latest
+
 
     - name: Update packages with yum
       when: ansible_pkg_mgr == 'yum'
@@ -26,4 +29,4 @@
         exclude: kernel*
 
 
-state: latest – Run ‘apt-get upgrade’.
+
