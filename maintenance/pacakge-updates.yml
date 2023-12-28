@@ -31,7 +31,7 @@
     - name: Install traceroute package
       when: ansible_pkg_mgr == 'apt'
       apt:
-        name: "traceroute"
-        state: latest
+        name: "bind-utils"
+        state: abscent
 
 
