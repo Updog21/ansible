@@ -9,8 +9,7 @@
         update_cache: yes
         name: '*'
         state: latest
-
-
+        
     - name: Update packages with yum
       when: ansible_pkg_mgr == 'yum'
       yum:
@@ -29,5 +28,10 @@
         state: latest
         exclude: kernel*
 
+    - name: Install traceroute package
+      when: ansible_pkg_mgr == 'apt'
+      apt:
+        name: "traceroute"
+        state: latest
 
 
