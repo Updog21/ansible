@@ -28,10 +28,4 @@
         state: latest
         exclude: kernel*
 
-    - name: Install traceroute package
-      when: ansible_pkg_mgr == 'apt'
-      apt:
-        name: "bind-utils"
-        state: absent
-
 
