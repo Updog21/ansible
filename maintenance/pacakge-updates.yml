@@ -1,6 +1,6 @@
 ---
 - name: Patch OS
-  hosts: dmz
+  hosts: all
   become: true
   tasks:
     - name: Update packages with apt
