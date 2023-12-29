@@ -8,7 +8,7 @@
     - name: apt update
       become: true
       become_method: su
-      command: sudo apt update
+      command: apt update
       register: output
 
     - debug: var=output.stdout
@@ -16,7 +16,7 @@
     - name: apt upgrade
       become: true
       become_method: su
-      command: sudo apt uprade -y
+      command: apt upgrade -y
       register: output
 
     - debug: var=output.stdout
