@@ -5,14 +5,14 @@
   tasks:
     - name: Update packages with apt
       when: ansible_pkg_mgr == "apt"
-        ansible.builtin.apt:
+      ansible.builtin.apt:
         update_cache: yes
         name: '*'
         state: latest
         
     - name: Upgrade packages with yum
       when: ansible_pkg_mgr == "yum"
-        ansible.builtin.yum:
+      ansible.builtin.yum:
         update_cache: yes
         name: '*'
         state: latest
@@ -20,7 +20,7 @@
 
     - name: Update packages with yum
       when: ansible_pkg_mgr == "dnf"
-        ansible.builtin.dnf:
+      ansible.builtin.dnf:
         update_cache: yes
         name: '*'
         state: latest
