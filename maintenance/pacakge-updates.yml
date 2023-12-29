@@ -10,7 +10,7 @@
 
     - debug: var=output.stdout
 
-    - name: update packages using yum
+    - name: update packages using apt
       when: ansible_os_family == "Ubuntu"
       become: yes
       ansible.builtin.apt:
