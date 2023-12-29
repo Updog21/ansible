@@ -4,6 +4,14 @@
   become: true
   become_method: sudo
   tasks:
+      - name: Test privilege escalation
+      become: true
+      become_method: su
+      command: whoami
+      register: output
+
+    - debug: var=output.stdout
+    
     - name: Perform package patches
       become: true
       become_method: sudo
@@ -12,11 +20,5 @@
         name: '*'
         state: latest
 
-    - name: Test privilege escalation
-      become: true
-      become_method: su
-      command: whoami
-      register: output
 
-    - debug: var=output.stdout
 
