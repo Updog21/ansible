@@ -12,7 +12,7 @@
 
     - name: update packages using apt
       when: ansible_distribution == "Ubuntu"
-      become: yes
+      become: true
       ansible.builtin.apt:
         name: '*'
         state: latest
@@ -20,7 +20,7 @@
 
     - name: update packages using yum
       when: ansible_distribution == "Rocky"
-      become: yes
+      become: true
       ansible.builtin.dnf:
         name: '*'
         state: latest
