@@ -13,6 +13,8 @@
     - name: update packages using apt
       when: ansible_distribution == "Ubuntu"
       become: true
+      become_user: root
+      become_method: su
       ansible.builtin.apt:
         name: '*'
         state: latest
@@ -21,6 +23,8 @@
     - name: update packages using yum
       when: ansible_distribution == "Rocky"
       become: true
+      become_user: root
+      become_method: su
       ansible.builtin.dnf:
         name: '*'
         state: latest
