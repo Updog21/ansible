@@ -2,9 +2,11 @@
 - name: Patch OS
   hosts: all
   become: true
-  become_user: root
+  become_method: su
   tasks:
     - name: Perform package patches
+      become: true
+      become_method: su
       ansible.builtin.package:
         update_cache: yes
         name: '*'
