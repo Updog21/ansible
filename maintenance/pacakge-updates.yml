@@ -9,15 +9,20 @@
       register: output
 
     - debug: var=output.stdout
-    
-    - name: Perform package patches
-      become: yes
-      become_method: su
-      ansible.builtin.package:
-        update_cache: yes
-        name: '*'
-        state: latest
-        
-    - debug: var=output.stdout
 
+- name: Patch debian based servers
+  hosts: apt
+  become: yes
+  ansible.builtin.apt:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Patch rhel based servers
+  hosts: yum
+  become: yes
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+    update_cache: yes
 
