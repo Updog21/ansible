@@ -1,29 +1,12 @@
 ---
 - name: Patch OS
   hosts: all
-  become: yes
+  become: true
+  become_user: root
   tasks:
-    - name: Update packages with apt
-      when: ansible_pkg_mgr == "apt"
-      become: true
-      ansible.builtin.apt:
+    - name: Perform package patches
+      ansible.builtin.package:
         update_cache: yes
         name: '*'
         state: latest
-        
-    - name: Upgrade packages with yum
-      when: ansible_pkg_mgr == "yum"
-      become: true
-      ansible.builtin.yum:
-        update_cache: yes
-        name: '*'
-        state: latest
-        exclude: kernel*
-
-    - name: Update packages with yum
-      when: ansible_pkg_mgr == "dnf"
-      become: true
-      ansible.builtin.dnf:
-        update_cache: yes
-        name: '*'
-        state: latest
+        autoremove: yes
