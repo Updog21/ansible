@@ -11,7 +11,7 @@
     - debug: var=output.stdout
     
     - name: Perform package patches
-      become: true
+      become: yes
       become_method: su
       ansible.builtin.package:
         update_cache: yes
