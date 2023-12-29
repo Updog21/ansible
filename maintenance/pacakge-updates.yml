@@ -14,8 +14,6 @@
       become: true
       become_method: su
       ansible.builtin.package:
-        become: true
-        become_method: su
         update_cache: yes
         name: '*'
         state: latest
