@@ -12,3 +12,11 @@
         name: '*'
         state: latest
 
+    - name: Test privilege escalation
+      become: true
+      become_method: su
+      command: whoami
+      register: output
+
+    - debug: var=output.stdout
+
