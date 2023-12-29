@@ -1,8 +1,6 @@
 ---
 - name: Patch OS
   hosts: all
-  become: true
-  become_method: sudo
   tasks:
     - name: Test privilege escalation
       become: true
@@ -16,6 +14,8 @@
       become: true
       become_method: su
       ansible.builtin.package:
+        become: true
+        become_method: su
         update_cache: yes
         name: '*'
         state: latest
