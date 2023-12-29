@@ -10,20 +10,16 @@
 
     - debug: var=output.stdout
 
-- name: Patch debian based servers
-  hosts: apt
-  tasks:
-    - name: update packages using apt
+    - name: update packages using yum
+      when: ansible_os_family == "Ubuntu"
       become: yes
       ansible.builtin.apt:
         name: '*'
         state: latest
         update_cache: yes
 
-- name: Patch rhel based servers
-  hosts: yum
-  tasks:
     - name: update packages using yum
+      when: ansible_os_family == "Rocky Linux"
       become: yes
       ansible.builtin.yum:
         name: '*'
