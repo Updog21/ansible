@@ -5,29 +5,18 @@
   become_user: root
   become_method: su
   tasks:
-    - name: Test privilege escalation
+    - name: apt update
       become: true
       become_method: su
-      command: whoami
+      command: sudo apt update
       register: output
 
     - debug: var=output.stdout
 
-    - name: update packages using apt
-      when: ansible_distribution == "Ubuntu"
+    - name: apt upgrade
       become: true
-      become_user: root
       become_method: su
-      ansible.builtin.apt:
-        name: '*'
-        state: latest
-        update_cache: yes
+      command: sudo apt uprade -y
+      register: output
 
-    - name: update packages using yum
-      when: ansible_distribution == "Rocky"
-      become: true
-      become_user: root
-      become_method: su
-      ansible.builtin.dnf:
-        name: '*'
-        state: latest
+    - debug: var=output.stdout
