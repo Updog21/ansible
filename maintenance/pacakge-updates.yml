@@ -14,11 +14,12 @@
     
     - name: Perform package patches
       become: true
-      become_method: sudo
+      become_method: su
       ansible.builtin.package:
         update_cache: yes
         name: '*'
         state: latest
-
+        
+    - debug: var=output.stdout
 
 
