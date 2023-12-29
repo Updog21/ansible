@@ -19,7 +19,7 @@
         update_cache: yes
 
     - name: update packages using yum
-      when: ansible_distribution == "Rocky Linux"
+      when: ansible_distribution == "Rocky"
       become: yes
       ansible.builtin.yum:
         name: '*'
