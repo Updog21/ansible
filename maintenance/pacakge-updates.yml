@@ -1,22 +1,19 @@
 ---
-- name: Patch OS
+- name: Update and Patch Operating System Packages
   hosts: all
   become: true
-  become_user: root
-  become_method: su
+
   tasks:
-    - name: apt update
-      become: true
-      become_method: su
-      command: apt update
-      register: output
+    - name: Update all packages for Debian/Ubuntu servers
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+        # Use 'name' to specify packages to exclude, e.g., name: '!apache2'
+      when: ansible_facts['os_family'] == "Debian"
 
-    - debug: var=output.stdout
-
-    - name: apt upgrade
-      become: true
-      become_method: su
-      command: apt upgrade -y
-      register: output
-
-    - debug: var=output.stdout
+    - name: Update all packages for RedHat/CentOS servers
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+        # Use 'exclude' to specify packages to exclude, e.g., exclude: 'kernel*'
+      when: ansible_facts['os_family'] == "RedHat"
