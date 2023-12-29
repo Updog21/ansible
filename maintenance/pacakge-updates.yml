@@ -4,18 +4,36 @@
   become: true
 
   tasks:
-    - name: Update all packages for Debian/Ubuntu servers
+
+    - name: Update apt cache for Debian/Ubuntu servers
       when: "ansible_distribution" == "Ubuntu"
       ansible.builtin.apt:
         update_cache: yes
-        name: "*"
-        state: latest
-        # Use 'name' to specify packages to exclude, e.g., name: '!apache2'
 
-    - name: Update all packages for RedHat/CentOS servers
+
+    - name: Upgrade all packages for Debian/Ubuntu servers
       when: "ansible_distribution" == "Ubuntu"
+      ansible.builtin.apt:
+        upgrade: dist
+
+
+    - name: Update yum cache for RedHat/CentOS servers
+      when: "ansible_distribution" == "Rocky"
       ansible.builtin.yum:
         name: '*'
         state: latest
-        # Use 'exclude' to specify packages to exclude, e.g., exclude: 'kernel*'
+        update_cache: yes
+        update_only: yes
+
+
+    - name: Upgrade all packages for RedHat/CentOS servers
+      when: "ansible_distribution" == "Rocky"
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+
+
+
+
+
 
