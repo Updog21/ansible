@@ -1,6 +1,9 @@
 ---
 - name: Patch OS
   hosts: all
+  become: true
+  become_user: root
+  become_method: su
   tasks:
     - name: Test privilege escalation
       become: true
