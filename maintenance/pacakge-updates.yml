@@ -6,19 +6,19 @@
   tasks:
 
     - name: Update apt cache for Debian/Ubuntu servers
-      when: "ansible_distribution" == "Ubuntu"
+      when: ansible_distribution == "Ubuntu"
       ansible.builtin.apt:
         update_cache: yes
 
 
     - name: Upgrade all packages for Debian/Ubuntu servers
-      when: "ansible_distribution" == "Ubuntu"
+      when: ansible_distribution == "Ubuntu"
       ansible.builtin.apt:
         upgrade: dist
 
 
     - name: Update yum cache for RedHat/CentOS servers
-      when: "ansible_distribution" == "Rocky"
+      when: ansible_distribution == "Rocky"
       ansible.builtin.yum:
         name: '*'
         state: latest
@@ -27,7 +27,7 @@
 
 
     - name: Upgrade all packages for RedHat/CentOS servers
-      when: "ansible_distribution" == "Rocky"
+      when: ansible_distribution == "Rocky"
       ansible.builtin.yum:
         name: '*'
         state: latest
