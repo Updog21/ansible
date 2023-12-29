@@ -13,7 +13,7 @@
 - name: Patch debian based servers
   hosts: apt
   tasks:
-    - name: Test privilege escalation
+    - name: update packages using apt
       become: yes
       ansible.builtin.apt:
         name: '*'
@@ -23,7 +23,7 @@
 - name: Patch rhel based servers
   hosts: yum
   tasks:
-    - name: Test privilege escalation
+    - name: update packages using yum
       become: yes
       ansible.builtin.yum:
         name: '*'
