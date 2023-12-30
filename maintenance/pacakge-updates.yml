@@ -2,6 +2,8 @@
 - name: Update and Patch Operating System Packages
   hosts: "*"
   become: yes
+  become_method: sudo
+  become_user: root
 
   tasks:
 
