@@ -16,7 +16,7 @@
       when: ansible_distribution == "Ubuntu"
       become_user: root
       ansible.builtin.apt:
-        upgrade: dist
+        upgrade: yes
 
 
     - name: Update yum cache for RedHat/CentOS servers
