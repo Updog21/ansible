@@ -7,18 +7,21 @@
 
     - name: Update apt cache for Debian/Ubuntu servers
       when: ansible_distribution == "Ubuntu"
+      become_user: root
       ansible.builtin.apt:
         update_cache: yes
 
 
     - name: Upgrade all packages for Debian/Ubuntu servers
       when: ansible_distribution == "Ubuntu"
+      become_user: root
       ansible.builtin.apt:
         upgrade: dist
 
 
     - name: Update yum cache for RedHat/CentOS servers
       when: ansible_distribution == "Rocky"
+      become_user: root
       ansible.builtin.yum:
         name: '*'
         state: latest
@@ -28,6 +31,7 @@
 
     - name: Upgrade all packages for RedHat/CentOS servers
       when: ansible_distribution == "Rocky"
+      become_user: root
       ansible.builtin.yum:
         name: '*'
         state: latest
