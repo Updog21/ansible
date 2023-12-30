@@ -23,10 +23,8 @@
       when: ansible_distribution == "Rocky"
       become_user: root
       ansible.builtin.yum:
-        name: '*'
-        state: latest
         update_cache: yes
-        update_only: yes
+
 
 
     - name: Upgrade all packages for RedHat/CentOS servers
