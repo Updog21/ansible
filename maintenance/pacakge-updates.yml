@@ -1,7 +1,7 @@
 ---
 - name: Update and Patch Operating System Packages
-  hosts: all
-  become_user: root
+  hosts: "*"
+  become: yes
 
   tasks:
 
