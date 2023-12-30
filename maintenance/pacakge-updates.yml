@@ -23,6 +23,7 @@
 
     - name: Update yum cache for RedHat/CentOS servers
       when: ansible_distribution == "Rocky"
+      ignore_errors: yes 
       become_user: root
       ansible.builtin.yum:
         update_cache: yes
