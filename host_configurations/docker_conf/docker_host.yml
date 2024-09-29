@@ -24,14 +24,21 @@
 #
 #    - role: test_cis.yml
 
-- name: Prepare
-  import_playbook: tests/experimental/cis/prepare_storage.yml
-  vars:
-    lvm_device: /dev/mapper/almalinux-var
-    docker_mount_point_override: /var/lib/docker/500000.500000
-
-- name: Configure user namespaces
+- name: Setup Repository and Prepare Storage
   hosts: all
+  become: yes
+  tasks:
+    - name: Clone the Docker CE Role Repository
+      git:
+        repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
+        dest: /tmp/ansible-role-docker-ce
+        version: main
+
+    - name: Import Prepare Storage Playbook
+      import_playbook: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
+
+- name: Configure User Namespaces
+  hosts: test-host
   tasks:
     - name: Enable user namespaces (Debian based)
       block:
@@ -82,8 +89,8 @@
         timeout: 300
       when: _sysctl_usrns is changed
 
-- name: Install and configure according to CIS
-  hosts: all
+- name: Install and Configure According to CIS
+  hosts: test-host
   pre_tasks:
     - name: Ensure /etc/docker/policies directory is present
       become: yes
@@ -99,8 +106,9 @@
           package docker.authz
 
           allow = true
-    - include_role:
-        name: haxorof.docker_ce
+
+  roles:
+    - name: haxorof.docker_ce
       vars:
         docker_plugins:
           - type: authz

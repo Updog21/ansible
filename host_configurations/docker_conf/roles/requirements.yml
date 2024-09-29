@@ -1,6 +1,8 @@
 ---
 roles:
-#  - src: https://github.com/haxorof/ansible-role-docker-ce/tree/f6b71d50ca7f052a6efb0e70d1c33968296b3923/tests
-#    name: haxorof.docker_ce2
+  - src: https://github.com/aneesh/common-roles
+    name: common-roles
+    version: master
+    scm: git
    
- - name: haxorof.docker_ce
+  - name: haxorof.docker_ce
