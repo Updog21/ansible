@@ -32,7 +32,7 @@
       git:
         repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
         dest: /tmp/ansible-role-docker-ce
-        version: main
+        version: master
 
     - name: Include Prepare Storage Tasks
       include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
