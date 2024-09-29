@@ -25,7 +25,7 @@
 #    - role: test_cis.yml
 
 - name: Prepare
-  import_playbook: ../../prepare_storage.yml
+  import_playbook: haxorof.docker_ce2/prepare_storage.yml
   vars:
     lvm_device: /dev/mapper/almalinux-var
     docker_mount_point_override: /var/lib/docker/500000.500000
