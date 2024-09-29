@@ -24,22 +24,17 @@
 #
 #    - role: test_cis.yml
 
-- name: Clone Repository on Controller
-  hosts: all
-  gather_facts: no
-  tasks:
-    - name: Clone the Docker CE Role Repository on Controller
-      git:
-        repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
-        dest: /tmp/ansible-role-docker-ce
-        version: main
-      delegate_to: localhost
-
-- name: Prepare Storage on Target Host
+- name: Setup Repository and Prepare Storage
   hosts: all
   become: yes
   tasks:
-    - name: Include Prepare Storage Tasks from Controller
+    - name: Clone the Docker CE Role Repository
+      git:
+        repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
+        dest: ./ansible-role-docker-ce
+        version: master
+
+    - name: Include Prepare Storage Tasks
       include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
       vars:
         lvm_device: /dev/sdb
