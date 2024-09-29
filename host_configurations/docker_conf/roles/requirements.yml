@@ -1,8 +1,8 @@
 ---
 roles:
-  - src: https://github.com/aneesh/common-roles
-    name: common-roles
-    version: master
-    scm: git
+  # - src: https://github.com/aneesh/common-roles
+  #   name: common-roles
+  #   version: master
+  #   scm: git
    
   - name: haxorof.docker_ce
