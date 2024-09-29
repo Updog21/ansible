@@ -31,11 +31,11 @@
     - name: Clone the Docker CE Role Repository
       git:
         repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
-        dest: /tmp/ansible-role-docker-ce
+        dest: /tmp/semaphore/ansible-role-docker-ce
         version: master
     
     - name: Include Prepare Storage Tasks
-      include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
+      include_tasks: /tmp/semaphore/ansible-role-docker-ce/tests/prepare_storage.yml
       vars:
         lvm_device: /dev/mapper/almalinux-var
         docker_mount_point_override: /var/lib/docker/500000.500000
