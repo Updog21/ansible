@@ -1,7 +1,8 @@
 ---
 roles:
-  - src: git+https://github.com/haxorof/ansible-role-docker-ce.git
-    scm: git
-    version: master
-    name: haxorof.docker_ce
+  # - src: git+https://github.com/haxorof/ansible-role-docker-ce.git
+  #   scm: git
+  #   version: master
+  #   name: haxorof.docker_ce
 
+  - name: haxorof.docker_ce
