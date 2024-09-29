@@ -34,11 +34,11 @@
         dest: /tmp/ansible-role-docker-ce
         version: main
 
-- name: Prepare
-  include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
-  vars:
-    lvm_device: /dev/sdb
-    docker_mount_point_override: /var/lib/docker/500000.500000
+    - name: Include Prepare Storage Tasks
+      include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
+      vars:
+        lvm_device: /dev/sdb
+        docker_mount_point_override: /var/lib/docker/500000.500000
 
 
 - name: Configure User Namespaces
