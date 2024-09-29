@@ -3,8 +3,5 @@
   become: yes
   roles:
     - name: haxorof.docker_ce
-      src: git+https://github.com/haxorof/ansible-role-docker-ce.git
-      scm: git
-      version: main
       vars:
         docker_cis_enabled: true  # Enable CIS hardening
