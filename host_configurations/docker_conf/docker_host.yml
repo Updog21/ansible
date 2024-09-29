@@ -31,7 +31,7 @@
     - name: Clone the Docker CE Role Repository
       git:
         repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
-        dest: /tmp/ansible-role-docker-ce
+        dest: ./ansible-role-docker-ce
         version: master
 
     - name: Include Prepare Storage Tasks
