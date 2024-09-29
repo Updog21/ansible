@@ -31,8 +31,15 @@
     - name: Clone the Docker CE Role Repository
       git:
         repo: 'https://github.com/haxorof/ansible-role-docker-ce.git'
-        dest: ./tmp/semaphore
+        dest: /tmp
         version: master
+
+    # This copies the specified file from the remote to the current dir
+    - name: Fetch yml from remote
+      fetch:
+        src: /tmp/ansible-role-docker-ce
+        dest: ./tmp/
+        flat: yes
     
     - name: Include Prepare Storage Tasks
       include_tasks: ./tmp/semaphore/ansible-role-docker-ce/tests/prepare_storage.yml
