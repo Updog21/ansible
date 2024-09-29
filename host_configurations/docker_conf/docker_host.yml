@@ -1,7 +1,119 @@
 ---
-- hosts: all
-  become: yes
-  roles:
-    - role: haxorof.docker_ce
+#- hosts: all
+#  become: yes
+#  vars:
+#    docker_sdk: true
+#    docker_compose: true
+#    docker_plugins:
+#      - type: authz
+#        alias: opa-docker-authz
+#        name: openpolicyagent/opa-docker-authz-v2:0.9
+#        args: opa-args="-policy-file /opa/policies/authz.rego"
+#    docker_enable_audit: yes
+#    docker_daemon_config:
+#      icc: false
+#      log-driver: journald
+#      userns-remap: default
+#      live-restore: true
+#      userland-proxy: false
+#      no-new-privileges: true
+#  roles:
+#    - role: haxorof.docker_ce
+#      vars:
+#        docker_cis_enabled: true  # Enable CIS hardening
+#
+#    - role: test_cis.yml
+
+- name: Prepare
+  import_playbook: ../../prepare_storage.yml
+  vars:
+    lvm_device: /dev/mapper/almalinux-var
+    docker_mount_point_override: /var/lib/docker/500000.500000
+
+- name: Configure user namespaces
+  hosts: all
+  tasks:
+    - name: Enable user namespaces (Debian based)
+      block:
+        - name: Enable user namespaces in GRUB (Debian based)
+          become: yes
+          lineinfile:
+            path: /etc/default/grub
+            regexp: '^GRUB_CMDLINE_LINUX='
+            line: GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0 namespace.unpriv_enable=1 user_namespace.enable=1"
+
+        - name: Update GRUB (Debian based)
+          become: yes
+          command: update-grub
+      when: ansible_distribution_file_variety == "Debian"
+
+    - name: Enable user namespaces (RHEL based)
+      block:
+        - name: Enable user namespace in GRUB (RHEL based)
+          include_role:
+            name: jtyr.grub_cmdline
+          vars:
+            ansible_become: yes
+            grub_cmdline_add_args:
+              - namespace.unpriv_enable=1
+              - user_namespace.enable=1
+      when: ansible_distribution_file_variety == "RedHat"
+
+    - name: Set user.max_user_namespaces
+      become: yes
+      sysctl:
+        name: user.max_user_namespaces
+        value: '15000'
+        sysctl_set: yes
+        state: present
+        reload: yes
+      register: _sysctl_usrns
+
+    - name: Reboot immediately
+      become: yes
+      reboot:
+      when: _sysctl_usrns is changed
+
+    - name: Wait for the reboot to complete
+      wait_for_connection:
+        connect_timeout: 20
+        sleep: 5
+        delay: 5
+        timeout: 300
+      when: _sysctl_usrns is changed
+
+- name: Install and configure according to CIS
+  hosts: all
+  pre_tasks:
+    - name: Ensure /etc/docker/policies directory is present
+      become: yes
+      file:
+        path: /etc/docker/policies
+        state: directory
+
+    - name: OPA policy file
+      become: yes
+      copy:
+        dest: /etc/docker/policies/authz.rego
+        content: |
+          package docker.authz
+
+          allow = true
+    - include_role:
+        name: haxorof.docker_ce
       vars:
-        docker_cis_enabled: true  # Enable CIS hardening
+        docker_plugins:
+          - type: authz
+            alias: opa-docker-authz
+            name: openpolicyagent/opa-docker-authz-v2:0.8
+            args: opa-args="-policy-file /opa/policies/authz.rego"
+        docker_enable_audit: yes
+        docker_users:
+          - vagrant
+        docker_daemon_config:
+          icc: false
+          log-driver: journald
+          userns-remap: default
+          live-restore: true
+          userland-proxy: false
+          no-new-privileges: true
