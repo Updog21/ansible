@@ -38,7 +38,7 @@
       import_playbook: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
 
 - name: Configure User Namespaces
-  hosts: test-host
+  hosts: all
   tasks:
     - name: Enable user namespaces (Debian based)
       block:
@@ -90,7 +90,7 @@
       when: _sysctl_usrns is changed
 
 - name: Install and Configure According to CIS
-  hosts: test-host
+  hosts: all
   pre_tasks:
     - name: Ensure /etc/docker/policies directory is present
       become: yes
