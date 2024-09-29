@@ -35,7 +35,7 @@
         version: master
 
     - name: Include Prepare Storage Tasks
-      include_tasks: /tmp/ansible-role-docker-ce/tests/prepare_storage.yml
+      include_tasks: ./ansible-role-docker-ce/tests/prepare_storage.yml
       vars:
         lvm_device: /dev/sdb
         docker_mount_point_override: /var/lib/docker/500000.500000
