@@ -1,6 +1,5 @@
 ---
-  - src: jtyr.grub_cmdline
-
 roles:
+  - name: jtyr.grub_cmdline
   - name: haxorof.docker_ce
 
