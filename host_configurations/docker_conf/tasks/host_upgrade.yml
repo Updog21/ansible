@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Upgrade all packages (RedHat)
+      become: true
+      ansible.builtin.package:
+        name: "*"
+        state: latest
+      register: _upgrade_all
+      when: ansible_distribution == "RedHat"

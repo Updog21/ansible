@@ -24,8 +24,8 @@
 #
 #    - role: test_cis.yml
 
-- name: Prepare
-  import_playbook: ../../prepare_storage.yml
+- name: Include Prepare Storage Task
+  include_tasks: tasks/prepare_storage.yml
   vars:
     lvm_device: /dev/sdb
     docker_mount_point_override: /var/lib/docker/500000.500000

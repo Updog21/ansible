@@ -1,6 +1,6 @@
 ---
 - name: Prepare host
-  import_playbook: prepare.yml
+  include_tasks: prepare.yml
 
 - name: Prepare host with additional disk
   hosts: test-host
