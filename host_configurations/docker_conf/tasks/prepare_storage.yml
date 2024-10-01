@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- name: FUCK THIS
   tasks:
     - name: Prepare host
       include_tasks: prepare.yml
