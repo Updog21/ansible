@@ -1,6 +1,7 @@
 ---
 
 - name: Prepare host with additional disk
+  hosts: all
   tasks:
     - name: Prepare host
       include_tasks: prepare.yml

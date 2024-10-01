@@ -1,6 +1,6 @@
 ---
 - name: Install Python on host
-  hosts: test-host
+  hosts: all
   gather_facts: no
   tasks:
     - name: Wait for connection
