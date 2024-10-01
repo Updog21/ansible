@@ -1,7 +1,5 @@
 ---
-
-- name: Configure Docker Volume
-  hosts: all
+- hosts: all
   tasks:
     - name: Prepare host
       include_tasks: prepare.yml
