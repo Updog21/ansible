@@ -1,11 +1,11 @@
 ---
 
 - name: Prepare host with additional disk
-  vars:
-    docker_mount_point: "{{ docker_mount_point_override|default('/var/lib/docker') }}"
   tasks:
     - name: Prepare host
       include_tasks: prepare.yml
+      vars:
+        docker_mount_point: "{{ docker_mount_point_override|default('/var/lib/docker') }}"
     - name: Ensure dependencies are installed (All)
       package:
         name: "{{ item }}"
