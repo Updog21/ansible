@@ -1,8 +1,4 @@
 ---
-- name: Install Python on host
-  hosts: all
-  gather_facts: no
-  tasks:
     - name: Wait for connection
       wait_for:
           host: "{{ hostvars[inventory_hostname]['ansible_ssh_host'] }}"
