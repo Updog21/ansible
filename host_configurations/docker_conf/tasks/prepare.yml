@@ -1,15 +1,15 @@
 ---
-- name: Setup Python on host
-  include_tasks: setup_python.yml
-
-- name: Determine Python interpreter
-  include_tasks: determine_python_interpreter.yml
-
-- name: Upgrade host
-  include_tasks: host_upgrade.yml
-
 - hosts: all
   tasks:
+    - name: Setup Python on host
+      include_tasks: setup_python.yml
+
+    - name: Determine Python interpreter
+      include_tasks: determine_python_interpreter.yml
+
+    - name: Upgrade host
+      include_tasks: host_upgrade.yml
+
     - name: Force all notified handlers to run at this point, not waiting for normal sync points
       ansible.builtin.meta: flush_handlers
 

@@ -1,12 +1,12 @@
 ---
-- name: Prepare host
-  include_tasks: prepare.yml
 
 - name: Prepare host with additional disk
   hosts: test-host
   vars:
     docker_mount_point: "{{ docker_mount_point_override|default('/var/lib/docker') }}"
   tasks:
+    - name: Prepare host
+      include_tasks: prepare.yml
     - name: Ensure dependencies are installed (All)
       package:
         name: "{{ item }}"
