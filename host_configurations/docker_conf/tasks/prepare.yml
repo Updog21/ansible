@@ -1,6 +1,4 @@
 ---
-- hosts: all
-  tasks:
     - name: Setup Python on host
       include_tasks: setup_python.yml
 

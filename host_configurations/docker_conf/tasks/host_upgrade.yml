@@ -1,6 +1,4 @@
 ---
-- hosts: all
-  tasks:
     - name: Upgrade all packages (RedHat)
       become: true
       ansible.builtin.package:
