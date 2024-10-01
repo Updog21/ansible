@@ -1,7 +1,6 @@
 ---
 
 - name: Prepare host with additional disk
-  hosts: test-host
   vars:
     docker_mount_point: "{{ docker_mount_point_override|default('/var/lib/docker') }}"
   tasks:
