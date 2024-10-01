@@ -24,16 +24,14 @@
 #
 #    - role: test_cis.yml
 
-- name: Include Prepare Storage Task
-  include_tasks: tasks/prepare_storage.yml
-  vars:
-    lvm_device: /dev/sdb
-    docker_mount_point_override: /var/lib/docker/500000.500000
-
-
 - name: Configure User Namespaces
   hosts: all
   tasks:
+    - name: Include Prepare Storage Task
+      include_tasks: tasks/prepare_storage.yml
+      vars:
+        lvm_device: /dev/sdb
+        docker_mount_point_override: /var/lib/docker/500000.500000
     - name: Enable user namespaces (Debian based)
       block:
         - name: Enable user namespaces in GRUB (Debian based)
